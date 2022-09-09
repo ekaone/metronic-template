@@ -1,4 +1,4 @@
-import React from 'react'
+import {FC} from 'react'
 import clsx from 'clsx'
 import {useLocation} from 'react-router'
 import {checkIsActive, KTSVG, WithChildren} from '../../../helpers'
@@ -12,7 +12,7 @@ type Props = {
   hasBullet?: boolean
 }
 
-const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
+const AsideMenuItemWithSub: FC<Props & WithChildren> = ({
   children,
   to,
   title,
@@ -27,10 +27,11 @@ const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
 
   return (
     <div
-      className={clsx('menu-item', {'here show': isActive}, 'menu-accordion')}
+      className={clsx({show: isActive, hover: isActive}, 'menu-item menu-accordion')}
+      data-kt-menu-sub='accordion'
       data-kt-menu-trigger='click'
     >
-      <span className='menu-link'>
+      <span className={clsx('menu-link', {active: isActive})}>
         {hasBullet && (
           <span className='menu-bullet'>
             <span className='bullet bullet-dot'></span>
@@ -45,9 +46,7 @@ const AsideMenuItemWithSub: React.FC<Props & WithChildren> = ({
         <span className='menu-title'>{title}</span>
         <span className='menu-arrow'></span>
       </span>
-      <div className={clsx('menu-sub menu-sub-accordion', {'menu-active-bg': isActive})}>
-        {children}
-      </div>
+      <div className={clsx({show: isActive}, 'menu-sub menu-sub-accordion')}>{children}</div>
     </div>
   )
 }

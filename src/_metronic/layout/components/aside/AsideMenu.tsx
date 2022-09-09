@@ -1,19 +1,20 @@
 import React, {useRef, useEffect} from 'react'
 import {useLocation} from 'react-router'
-import clsx from 'clsx'
-import {AsideMenuMain} from './AsideMenuMain'
-import {DrawerComponent, ScrollComponent, ToggleComponent} from '../../../assets/ts/components'
+import {AsideMenuDocs} from './AsideMenuDocs'
+import {
+  DrawerComponent,
+  MenuComponent,
+  ScrollComponent,
+  ToggleComponent,
+} from '../../../assets/ts/components'
 
-type Props = {
-  asideMenuCSSClasses: string[]
-}
-
-const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
+const AsideMenu: React.FC = () => {
   const scrollRef = useRef<HTMLDivElement | null>(null)
   const {pathname} = useLocation()
 
   useEffect(() => {
     setTimeout(() => {
+      MenuComponent.reinitialization()
       DrawerComponent.reinitialization()
       ToggleComponent.reinitialization()
       ScrollComponent.reinitialization()
@@ -26,25 +27,22 @@ const AsideMenu: React.FC<Props> = ({asideMenuCSSClasses}) => {
 
   return (
     <div
-      id='kt_aside_menu_wrapper'
       ref={scrollRef}
-      className='hover-scroll-overlay-y my-5 my-lg-5'
+      className='hover-scroll-overlay-y mt-5 mb-5 mt-lg-0 mb-lg-5 pe-lg-n2 me-lg-2'
+      id='kt_docs_aside_menu_wrapper'
       data-kt-scroll='true'
       data-kt-scroll-activate='{default: false, lg: true}'
       data-kt-scroll-height='auto'
-      data-kt-scroll-dependencies='#kt_aside_logo, #kt_aside_footer'
-      data-kt-scroll-wrappers='#kt_aside_menu'
-      data-kt-scroll-offset='0'
+      data-kt-scroll-dependencies='#kt_docs_aside_logo'
+      data-kt-scroll-wrappers='#kt_docs_aside_menu'
+      data-kt-scroll-offset='10px'
     >
       <div
-        id='#kt_aside_menu'
+        id='#kt_docs_aside_menu'
         data-kt-menu='true'
-        className={clsx(
-          'menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500',
-          asideMenuCSSClasses.join(' ')
-        )}
+        className='menu menu-column menu-title-gray-800 menu-state-title-primary menu-state-icon-primary menu-state-bullet-primary menu-arrow-gray-500'
       >
-        <AsideMenuMain />
+        <AsideMenuDocs />
       </div>
     </div>
   )

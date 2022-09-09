@@ -1,69 +1,32 @@
-import {useEffect} from 'react'
-import {Outlet} from 'react-router-dom'
+// @ts-nocheck
+import {FC} from 'react'
 import {AsideDefault} from './components/aside/AsideDefault'
 import {Footer} from './components/Footer'
 import {HeaderWrapper} from './components/header/HeaderWrapper'
-import {Toolbar} from './components/toolbar/Toolbar'
-import {RightToolbar} from '../partials/layout/RightToolbar'
 import {ScrollTop} from './components/ScrollTop'
 import {Content} from './components/Content'
+import {MasterInit} from './MasterInit'
 import {PageDataProvider} from './core'
-import {useLocation} from 'react-router-dom'
-import {
-  DrawerMessenger,
-  ActivityDrawer,
-  InviteUsers,
-  UpgradePlan,
-  ThemeModeProvider,
-} from '../partials'
-import {MenuComponent} from '../assets/ts/components'
+import {ExploreMain} from '../partials'
+import {WithChildren} from '../helpers'
 
-const MasterLayout = () => {
-  const location = useLocation()
-  useEffect(() => {
-    setTimeout(() => {
-      MenuComponent.reinitialization()
-    }, 500)
-  }, [])
-
-  useEffect(() => {
-    setTimeout(() => {
-      MenuComponent.reinitialization()
-    }, 500)
-  }, [location.key])
-
+const MasterLayout: FC<WithChildren> = ({children}) => {
   return (
     <PageDataProvider>
-      <ThemeModeProvider>
-        <div className='page d-flex flex-row flex-column-fluid'>
-          <AsideDefault />
-          <div className='wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
-            <HeaderWrapper />
+      <div className='docs-page d-flex flex-row flex-column-fluid'>
+        <AsideDefault />
+        <div className='docs-wrapper d-flex flex-column flex-row-fluid' id='kt_wrapper'>
+          <HeaderWrapper />
 
-            <div id='kt_content' className='content d-flex flex-column flex-column-fluid'>
-              <Toolbar />
-              <div className='post d-flex flex-column-fluid' id='kt_post'>
-                <Content>
-                  <Outlet />
-                </Content>
-              </div>
-            </div>
-            <Footer />
+          <div id='kt_docs_content' className='docs-content d-flex flex-column flex-column-fluid'>
+            <Content>{children}</Content>
           </div>
+          <Footer />
         </div>
-
-        {/* begin:: Drawers */}
-        <ActivityDrawer />
-        <RightToolbar />
-        <DrawerMessenger />
-        {/* end:: Drawers */}
-
-        {/* begin:: Modals */}
-        <InviteUsers />
-        <UpgradePlan />
-        {/* end:: Modals */}
-        <ScrollTop />
-      </ThemeModeProvider>
+      </div>
+      <ScrollTop />
+      <ExploreMain />
+      <MasterInit />
     </PageDataProvider>
   )
 }

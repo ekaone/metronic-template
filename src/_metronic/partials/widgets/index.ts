@@ -17,9 +17,6 @@ export * from './mixed/MixedWidget8'
 export * from './mixed/MixedWidget9'
 export * from './mixed/MixedWidget10'
 export * from './mixed/MixedWidget11'
-export * from './mixed/MixedWidget13'
-export * from './mixed/MixedWidget14'
-export * from './mixed/MixedWidget15'
 
 // lists
 export * from './lists/ListsWidget1'
@@ -30,7 +27,6 @@ export * from './lists/ListsWidget5'
 export * from './lists/ListsWidget6'
 export * from './lists/ListsWidget7'
 export * from './lists/ListsWidget8'
-export * from './lists/ListsWidget9'
 
 // statistics
 export * from './statistics/StatisticsWidget1'
@@ -74,10 +70,3 @@ export * from './engage/EngageWidget3'
 export * from './feeds/FeedsWidget2'
 export * from './feeds/FeedsWidget3'
 export * from './feeds/FeedsWidget4'
-
-// tiles
-export * from './tiles/TilesWidget1'
-export * from './tiles/TilesWidget2'
-export * from './tiles/TilesWidget3'
-export * from './tiles/TilesWidget4'
-export * from './tiles/TilesWidget5'

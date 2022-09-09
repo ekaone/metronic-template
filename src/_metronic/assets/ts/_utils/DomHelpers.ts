@@ -277,13 +277,11 @@ function slide(el: HTMLElement, dir: string, speed: number, callback: any) {
   }
 
   if (DataUtil.has(el, 'slide-padding-top')) {
-    const data = DataUtil.get(el, 'slide-padding-top') as string
-    calcPaddingTop = parseInt(data as string)
+    calcPaddingTop = parseInt(DataUtil.get(el, 'slide-padding-top'))
   }
 
   if (DataUtil.has(el, 'slide-padding-bottom')) {
-    const data = DataUtil.get(el, 'slide-padding-bottom') as string
-    calcPaddingBottom = parseInt(data)
+    calcPaddingBottom = parseInt(DataUtil.get(el, 'slide-padding-bottom'))
   }
 
   if (dir === 'up') {
@@ -380,7 +378,7 @@ function slideDown(el: HTMLElement, speed: number, callback: any) {
 }
 
 function getBreakpoint(breakpoint: string) {
-  let value: number | string = getCSSVariableValue('--kt-' + breakpoint)
+  let value: number | string = getCSSVariableValue('--bs-' + breakpoint)
   if (value) {
     value = parseInt(value.trim())
   }

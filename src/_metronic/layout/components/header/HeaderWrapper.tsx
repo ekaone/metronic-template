@@ -1,80 +1,71 @@
+/* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react-hooks/exhaustive-deps */
-import clsx from 'clsx'
-import React from 'react'
-import {Link} from 'react-router-dom'
+import React, {FC, useEffect} from 'react'
+import {Link, useLocation} from 'react-router-dom'
+import {MenuComponent} from '../../../assets/ts/components'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
-import {useLayout} from '../../core'
-import {Header} from './Header'
 import {DefaultTitle} from './page-title/DefaultTitle'
-import {Topbar} from './Topbar'
 
-export function HeaderWrapper() {
-  const {config, classes, attributes} = useLayout()
-  const {header, aside} = config
+const HeaderWrapper: FC = () => {
+  const {pathname} = useLocation()
+
+  useEffect(() => {
+    MenuComponent.reinitialization()
+  }, [pathname])
 
   return (
-    <div
-      id='kt_header'
-      className={clsx('header', classes.header.join(' '), 'align-items-stretch')}
-      {...attributes.headerMenu}
-    >
-      <div
-        className={clsx(
-          classes.headerContainer.join(' '),
-          'd-flex align-items-stretch justify-content-between'
-        )}
-      >
-        {/* begin::Aside mobile toggle */}
-        {aside.display && (
-          <div className='d-flex align-items-center d-lg-none ms-n3 me-1' title='Show aside menu'>
+    <div id='kt_docs_header' className='docs-header align-items-stretch mb-2 mb-lg-10'>
+      <div className='container'>
+        <div className='d-flex align-items-stretch justify-content-between py-3 h-75px'>
+          <div
+            className='d-flex align-items-center d-lg-none me-3d-flex align-items-center d-lg-none me-3'
+            title='Show aside menu'
+          >
             <div
-              className='btn btn-icon btn-active-light-primary w-30px h-30px w-md-40px h-md-40px'
-              id='kt_aside_mobile_toggle'
+              className='btn btn-icon btn-flex btn-active-color-primary'
+              id='kt_docs_aside_toggle'
             >
               <KTSVG path='/media/icons/duotune/abstract/abs015.svg' className='svg-icon-2x mt-1' />
             </div>
           </div>
-        )}
-        {/* end::Aside mobile toggle */}
-        {/* begin::Logo */}
-        {!aside.display && (
-          <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-            <Link to='/dashboard' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
+
+          <div className='d-flex d-lg-none align-items-center flex-grow-1 flex-lg-grow-0 me-lg-15'>
+            <Link to='/'>
+              <img
+                alt='Logo'
+                src={toAbsoluteUrl('/media/logos/default-small.svg')}
+                className="h-25px logo'"
+              />
             </Link>
           </div>
-        )}
-        {/* end::Logo */}
 
-        {aside.display && (
-          <div className='d-flex align-items-center flex-grow-1 flex-lg-grow-0'>
-            <Link to='/' className='d-lg-none'>
-              <img alt='Logo' src={toAbsoluteUrl('/media/logos/default-small.svg')} className='h-30px' />
-            </Link>
-          </div>
-        )}
-
-        {/* begin::Wrapper */}
-        <div className='d-flex align-items-stretch justify-content-between flex-lg-grow-1'>
-          {/* begin::Navbar */}
-          {header.left === 'menu' && (
-            <div className='d-flex align-items-stretch' id='kt_header_nav'>
-              <Header />
-            </div>
-          )}
-
-          {header.left === 'page-title' && (
-            <div className='d-flex align-items-center' id='kt_header_nav'>
+          <div className='d-flex align-items-center justify-content-between flex-lg-grow-1'>
+            <div className='d-flex align-items-center' id='kt_docs_header_title'>
               <DefaultTitle />
             </div>
-          )}
+            <div className='d-flex align-items-center'>
+              <a
+                className='btn btn-bg-white btn-color-gray-700 btn-active-primary fw-bolder me-4'
+                href={process.env.REACT_APP_PREVIEW_URL}
+                target='_blank'
+              >
+                Preview
+              </a>
 
-          <div className='d-flex align-items-stretch flex-shrink-0'>
-            <Topbar />
+              <a
+                className='btn btn-primary fw-bolder'
+                href={process.env.REACT_APP_PURCHASE_URL}
+                target='_blank'
+              >
+                Purchase
+              </a>
+            </div>
           </div>
         </div>
-        {/* end::Wrapper */}
+        <div className='border-gray-300 border-bottom border-bottom-dashed'></div>
       </div>
     </div>
   )
 }
+
+export {HeaderWrapper}

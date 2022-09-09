@@ -1,5 +1,4 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import clsx from 'clsx'
 import React from 'react'
 
 type Props = {
@@ -20,11 +19,11 @@ const EngageWidget2: React.FC<Props> = ({
       <div className={`card-body p-0 d-flex card-rounded bg-light-${color}`}>
         <div className='py-18 px-12'>
           <h3 className='fs-2x'>
-            <a href='#' className='text-dark text-hover-primary fw-bold'>
+            <a href='#' className='text-dark text-hover-primary fw-bolder'>
               Nike Sneakers
             </a>
           </h3>
-          <div className={clsx('fs-3', `text-${color}`)}>Get Amazing Nike Sneakers</div>
+          <div className='fs-3 text-<?php echo $color ?>'>Get Amazing Nike Sneakers</div>
         </div>
         {imagePath && (
           <div

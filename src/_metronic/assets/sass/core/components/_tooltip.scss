@@ -5,12 +5,8 @@
 
 // Base
 .tooltip {
-    --#{$prefix}tooltip-color: var(--kt-tooltip-color);
-    --#{$prefix}tooltip-bg: var(--kt-tooltip-bg);
-    --#{$prefix}tooltip-opacity: var(--kt-tooltip-opacity);
-
     .tooltip-inner {
-        box-shadow: var(--kt-tooltip-box-shadow);
+        box-shadow: $tooltip-box-shadow;
     }
 
     &.tooltop-auto-width {
@@ -20,12 +16,8 @@
         }
     }
 
-    // Inverse
-    &.tooltip-inverse {
-        @include tooltip-theme(
-            $bg-color: var(--kt-dark), 
-            $color: var(--kt-dark-inverse),
-            $arrow-color: var(--kt-dark),
-        );
+    // Dark Theme
+    &.tooltip-dark {
+        @include tooltip-theme($dark, $dark-inverse, $dark);
     }
 }

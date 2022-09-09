@@ -4,7 +4,6 @@ export const DefaultLayoutConfig: ILayout = {
   main: {
     type: 'default',
     primaryColor: '#009EF7',
-    darkSkinEnabled: true,
   },
   loader: {
     display: true,
@@ -16,10 +15,10 @@ export const DefaultLayoutConfig: ILayout = {
   header: {
     display: true, // Set true|false to show or hide Header
     width: 'fluid', // Set fixed|fluid to change width type
-    left: 'menu',
+    left: 'page-title',
     fixed: {
       desktop: true, // Set true|false to set fixed Header for desktop mode
-      tabletAndMobile: true, // Set true|false to set fixed Header for tablet and mobile modes
+      tabletAndMobile: false, // Set true|false to set fixed Header for tablet and mobile modes
     },
     menuIcon: 'svg',
   },
@@ -29,7 +28,7 @@ export const DefaultLayoutConfig: ILayout = {
   aside: {
     display: true,
     theme: 'dark',
-    menu: 'main',
+    menu: 'documentation',
     fixed: true,
     minimized: false,
     minimize: true,
@@ -38,7 +37,7 @@ export const DefaultLayoutConfig: ILayout = {
   },
   content: {
     width: 'fixed', // Set fixed|fluid to change width
-    layout: 'default',
+    layout: 'documentation',
   },
   toolbar: {
     display: true, // Display toolbar
@@ -78,10 +77,10 @@ export const DefaultLayoutConfig: ILayout = {
     display: true,
     breadCrumbs: true,
     description: false,
-    layout: 'default',
+    layout: 'documentation',
     direction: 'row',
     responsive: true,
     responsiveBreakpoint: 'lg',
-    responsiveTarget: '#kt_toolbar_container',
+    responsiveTarget: '#kt_header_nav',
   },
 }

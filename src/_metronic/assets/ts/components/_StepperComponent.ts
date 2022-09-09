@@ -272,8 +272,8 @@ class StepperComponent {
     return EventHandlerUtil.one(this.element, name, handler)
   }
 
-  public off = (name: string, handlerId: string) => {
-    return EventHandlerUtil.off(this.element, name, handlerId)
+  public off = (name: string) => {
+    return EventHandlerUtil.off(this.element, name)
   }
 
   public destroy = () => {
@@ -289,13 +289,11 @@ class StepperComponent {
     return DataUtil.has(element, 'stepper')
   }
 
-  public static getInstance(element: HTMLElement): StepperComponent | undefined {
+  public static getInstance(element: HTMLElement): StepperComponent | null {
     if (element !== null && StepperComponent.hasInstace(element)) {
-      const data = DataUtil.get(element, 'stepper')
-      if (data) {
-        return data as StepperComponent
-      }
+      return DataUtil.get(element, 'stepper')
     }
+    return null
   }
 
   // Create Instances

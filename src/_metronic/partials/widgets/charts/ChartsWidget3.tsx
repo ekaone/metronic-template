@@ -2,7 +2,6 @@
 import React, {useEffect, useRef} from 'react'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -10,8 +9,8 @@ type Props = {
 
 const ChartsWidget3: React.FC<Props> = ({className}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
-  const {mode} = useThemeMode()
-  const refreshMode = () => {
+
+  useEffect(() => {
     if (!chartRef.current) {
       return
     }
@@ -23,27 +22,21 @@ const ChartsWidget3: React.FC<Props> = ({className}) => {
       chart.render()
     }
 
-    return chart
-  }
-
-  useEffect(() => {
-    const chart = refreshMode()
-
     return () => {
       if (chart) {
         chart.destroy()
       }
     }
-  }, [chartRef, mode])
+  }, [chartRef])
 
   return (
     <div className={`card ${className}`}>
       {/* begin::Header */}
       <div className='card-header border-0 pt-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Recent Transactions</span>
+          <span className='card-label fw-bolder fs-3 mb-1'>Recent Transactions</span>
 
-          <span className='text-muted fw-semibold fs-7'>More than 1000 new records</span>
+          <span className='text-muted fw-bold fs-7'>More than 1000 new records</span>
         </h3>
 
         {/* begin::Toolbar */}
@@ -87,10 +80,10 @@ const ChartsWidget3: React.FC<Props> = ({className}) => {
 export {ChartsWidget3}
 
 function getChartOptions(height: number): ApexOptions {
-  const labelColor = getCSSVariableValue('--kt-gray-500')
-  const borderColor = getCSSVariableValue('--kt-gray-200')
-  const baseColor = getCSSVariableValue('--kt-info')
-  const lightColor = getCSSVariableValue('--kt-info-light')
+  const labelColor = getCSSVariableValue('--bs-gray-500')
+  const borderColor = getCSSVariableValue('--bs-gray-200')
+  const baseColor = getCSSVariableValue('--bs-info')
+  const lightColor = getCSSVariableValue('--bs-light-info')
 
   return {
     series: [

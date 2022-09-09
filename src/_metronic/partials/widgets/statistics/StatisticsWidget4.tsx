@@ -1,10 +1,8 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, {useEffect, useRef} from 'react'
-import {KTSVG} from '../../../helpers'
+import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import ApexCharts, {ApexOptions} from 'apexcharts'
 import {getCSS, getCSSVariableValue} from '../../../assets/ts/_utils'
-import clsx from 'clsx'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -16,16 +14,16 @@ type Props = {
 
 const StatisticsWidget4: React.FC<Props> = ({className, svgIcon, color, change, description}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
-  const {mode} = useThemeMode()
-  const refreshChart = () => {
+
+  useEffect(() => {
     if (!chartRef.current) {
       return
     }
 
     const height = parseInt(getCSS(chartRef.current, 'height'))
-    const labelColor = getCSSVariableValue('--kt-gray-800')
-    const baseColor = getCSSVariableValue('--kt-' + color)
-    const lightColor = getCSSVariableValue('--kt-' + color + '-light')
+    const labelColor = getCSSVariableValue('--bs-gray-800')
+    const baseColor = getCSSVariableValue('--bs-' + color)
+    const lightColor = getCSSVariableValue('--bs-light-' + color)
 
     const chart = new ApexCharts(
       chartRef.current,
@@ -35,34 +33,28 @@ const StatisticsWidget4: React.FC<Props> = ({className, svgIcon, color, change, 
       chart.render()
     }
 
-    return chart
-  }
-
-  useEffect(() => {
-    const chart = refreshChart()
     return () => {
       if (chart) {
         chart.destroy()
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, color, mode])
+  }, [chartRef, color])
 
   return (
     <div className={`card ${className}`}>
       {/* begin::Body */}
       <div className='card-body p-0'>
         <div className='d-flex flex-stack card-p flex-grow-1'>
-          <span className={clsx('symbol symbol-50px', `symbol-light-${color}`, 'me-2')}>
+          <span className='symbol symbol-50px <?php echo $symbolShape?>  symbol-light-<?php echo $color?> me-2'>
             <span className='symbol-label'>
-              <KTSVG path={svgIcon} className={`svg-icon-2x svg-icon-${color}`} />
+              <KTSVG path={toAbsoluteUrl(svgIcon)} className={`svg-icon-2x svg-icon-${color}`} />
             </span>
           </span>
 
           <div className='d-flex flex-column text-end'>
-            <span className='text-dark fw-bold fs-2'>{change}</span>
+            <span className='text-dark fw-bolder fs-2'>{change}</span>
 
-            <span className='text-muted fw-semibold mt-1'>{description}</span>
+            <span className='text-muted fw-bold mt-1'>{description}</span>
           </div>
         </div>
 

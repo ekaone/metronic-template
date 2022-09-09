@@ -25,7 +25,7 @@ export interface IMegaMenu {
 export interface IAside {
   display: boolean // Display aside
   theme: 'dark' | 'light' // Set aside theme(dark|light)
-  menu: 'main' | 'documentation' // Set aside menu(main|documentation)
+  menu: 'documentation' // Set aside menu(main|documentation)
   fixed: boolean // Enable aside fixed mode
   minimized: boolean // Set aside minimized by default
   minimize: boolean // Allow aside minimize toggle
@@ -35,7 +35,7 @@ export interface IAside {
 
 export interface IContent {
   width: 'fixed' | 'fluid'
-  layout: 'default' | 'docs'
+  layout: 'documentation'
 }
 
 export interface IFooter {
@@ -47,7 +47,7 @@ export interface ISidebar {
   toggle: boolean
   shown: boolean
   content: 'general' | 'user' | 'shop'
-  bgColor: 'bg-body' | 'bg-info'
+  bgColor: 'bg-white' | 'bg-info'
   displayFooter: boolean
   displayFooterButton: boolean
 }
@@ -88,7 +88,7 @@ export interface IPageTitle {
   display: boolean
   breadCrumbs: boolean
   description: boolean
-  layout: 'default' | 'select'
+  layout: 'default' | 'select' | 'documentation'
   direction: 'row' | 'column'
   responsive: boolean
   responsiveBreakpoint: 'lg' | 'md' | 'lg' | '300px'
@@ -101,7 +101,6 @@ export interface IMain {
     class: string
   }
   primaryColor: string
-  darkSkinEnabled: boolean
   type: 'blank' | 'default' | 'none'
 }
 

@@ -1,10 +1,8 @@
-//
-// Root
-//
-
 html {
-  font-family: sans-serif;
-  text-size-adjust: 100%;
+  font-family: sans-serif; // 1
+  text-size-adjust: 100%; // 2
+  -webkit-text-size-adjust: 100%; // 2
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
 
 html,
@@ -12,8 +10,6 @@ body {
     height: 100%;
     margin: 0px;
     padding: 0px;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
     font-size: $root-font-size !important;
     font-weight: $font-weight-base;
     font-family: $font-family-sans-serif;
@@ -26,12 +22,10 @@ body {
     // Mobile mode
     @include media-breakpoint-down(md) {
         font-size: $root-font-size-md !important;
-    }    
-}
+    }
 
-body {
-    display: flex;
-    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     a:hover,
     a:active,
@@ -40,11 +34,17 @@ body {
     }
 }
 
-canvas {
-    user-select: none;
+body {
+    display: flex;
+    flex-direction: column;
+    color: $body-color;
 }
 
 // Angular integration
 router-outlet {
     display: none;
+}
+
+canvas {
+    user-select: none;
 }

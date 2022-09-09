@@ -24,11 +24,11 @@ const FeedsWidget5: React.FC<Props> = ({className}) => {
 
             {/* begin::Info */}
             <div className='d-flex flex-column'>
-              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bold'>
+              <a href='#' className='text-gray-800 text-hover-primary fs-6 fw-bolder'>
                 Sam Logan
               </a>
 
-              <span className='text-gray-400 fw-semibold'>Mango, Java, Python</span>
+              <span className='text-gray-400 fw-bold'>Mango, Java, Python</span>
             </div>
             {/* end::Info */}
           </div>
@@ -56,9 +56,7 @@ const FeedsWidget5: React.FC<Props> = ({className}) => {
           {/* begin::Image */}
           <div
             className='bgi-no-repeat bgi-size-cover rounded min-h-250px mb-5'
-            style={{
-              backgroundImage: `url('${toAbsoluteUrl('/media/stock/900x600/20.jpg')}')`,
-            }}
+            style={{backgroundImage: `url('/media/stock/900x600/20.jpg')`}}
           ></div>
           {/* end::Image */}
 

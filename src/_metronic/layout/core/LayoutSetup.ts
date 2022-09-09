@@ -161,23 +161,11 @@ export class LayoutSetup {
       return
     }
 
-    if (config.direction === 'column') {
-      this.classes.pageTitle.push('flex-column')
-      this.classes.pageTitle.push('align-items-start')
-    } else {
-      this.classes.pageTitle.push('align-items-center')
-      this.classes.pageTitle.push('flex-wrap')
-    }
-    this.classes.pageTitle.push('me-3')
-
     if (config.responsive) {
-      this.classes.pageTitle.push('mb-5')
-      this.classes.pageTitle.push('mb-lg-0')
-
-      LayoutSetup.attributes.pageTitle.set('data-kt-swapper', true)
-      LayoutSetup.attributes.pageTitle.set('data-kt-swapper-mode', 'prepend')
+      LayoutSetup.attributes.pageTitle.set('data-kt-place', true)
+      LayoutSetup.attributes.pageTitle.set('data-kt-place-mode', 'prepend')
       LayoutSetup.attributes.pageTitle.set(
-        'data-kt-swapper-parent',
+        'data-kt-place-parent',
         `{ default: '#kt_content_container', '${config.responsiveBreakpoint}': '${config.responsiveTarget}'}`
       )
     }
@@ -252,23 +240,19 @@ export class LayoutSetup {
   }
 
   private static initConfig(config: ILayout): void {
-    if (config.main?.darkSkinEnabled) {
-      document.body.classList.add('dark-skin')
-    }
-
     // Init layout
     LayoutSetup.initLayout(config)
     if (config.main?.type !== 'default') {
       return
     }
 
-    LayoutSetup.initHeader(config.header)
-    LayoutSetup.initPageTitle(config.pageTitle as IPageTitle)
-    LayoutSetup.initToolbar(config.toolbar)
-    LayoutSetup.initContent(config.content)
-    LayoutSetup.initAside(config.aside)
-    LayoutSetup.initFooter(config.footer)
-    LayoutSetup.initAsideMenu(config.aside)
+    // LayoutSetup.initHeader(config.header)
+    // LayoutSetup.initPageTitle(config.pageTitle as IPageTitle)
+    // LayoutSetup.initToolbar(config.toolbar)
+    // LayoutSetup.initContent(config.content)
+    // LayoutSetup.initAside(config.aside)
+    // LayoutSetup.initFooter(config.footer)
+    // LayoutSetup.initAsideMenu(config.aside)
   }
 
   public static updatePartialConfig(fieldsToUpdate: Partial<ILayout>): ILayout {

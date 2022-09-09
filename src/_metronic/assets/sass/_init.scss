@@ -16,7 +16,6 @@
 // Bootstrap initializaton
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
-@import "~bootstrap/scss/maps";
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/utilities";
 
@@ -25,3 +24,4 @@
 
 // Custom layout variables
 @import "layout/variables";
+@import "./core/layout/docs/variables";

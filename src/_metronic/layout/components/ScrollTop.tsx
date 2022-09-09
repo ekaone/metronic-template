@@ -1,7 +1,9 @@
 import React, {useEffect, useRef} from 'react'
 import {useLocation} from 'react-router-dom'
 import {
+  // ScrollComponent,
   ScrollTopComponent,
+  MenuComponent,
   DrawerComponent,
   ToggleComponent,
   StickyComponent,
@@ -14,10 +16,13 @@ export function ScrollTop() {
 
   const pluginsReinitialization = () => {
     setTimeout(() => {
+      // ScrollTopComponent.reinitialization()
+      MenuComponent.reinitialization()
       StickyComponent.reInitialization()
       setTimeout(() => {
         ToggleComponent.reinitialization()
         DrawerComponent.reinitialization()
+        // ScrollComponent.reinitialization()
       }, 70)
     }, 140)
   }

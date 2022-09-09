@@ -1,19 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, {FC, createContext, useContext, useEffect, useState} from 'react'
+import {FC, createContext, useContext, useEffect, useState} from 'react'
 import {WithChildren} from '../../helpers'
 
 export interface PageLink {
   title: string
-  path: string
-  isActive: boolean
-  isSeparator?: boolean
+  isSeparator: boolean
 }
 
 export interface PageDataContextModel {
   pageTitle?: string
   setPageTitle: (_title: string) => void
-  pageDescription?: string
-  setPageDescription: (_description: string) => void
   pageBreadcrumbs?: Array<PageLink>
   setPageBreadcrumbs: (_breadcrumbs: Array<PageLink>) => void
 }
@@ -21,18 +17,14 @@ export interface PageDataContextModel {
 const PageDataContext = createContext<PageDataContextModel>({
   setPageTitle: (_title: string) => {},
   setPageBreadcrumbs: (_breadcrumbs: Array<PageLink>) => {},
-  setPageDescription: (_description: string) => {},
 })
 
 const PageDataProvider: FC<WithChildren> = ({children}) => {
   const [pageTitle, setPageTitle] = useState<string>('')
-  const [pageDescription, setPageDescription] = useState<string>('')
   const [pageBreadcrumbs, setPageBreadcrumbs] = useState<Array<PageLink>>([])
   const value: PageDataContextModel = {
     pageTitle,
     setPageTitle,
-    pageDescription,
-    setPageDescription,
     pageBreadcrumbs,
     setPageBreadcrumbs,
   }
@@ -44,30 +36,11 @@ function usePageData() {
 }
 
 type Props = {
-  description?: string
   breadcrumbs?: Array<PageLink>
 }
 
-const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs}) => {
-  const {setPageTitle, setPageDescription, setPageBreadcrumbs} = usePageData()
-  useEffect(() => {
-    if (children) {
-      setPageTitle(children.toString())
-    }
-    return () => {
-      setPageTitle('')
-    }
-  }, [children])
-
-  useEffect(() => {
-    if (description) {
-      setPageDescription(description)
-    }
-    return () => {
-      setPageDescription('')
-    }
-  }, [description])
-
+const PageTitle: FC<Props & WithChildren> = ({breadcrumbs, children}) => {
+  const {setPageTitle, setPageBreadcrumbs} = usePageData()
   useEffect(() => {
     if (breadcrumbs) {
       setPageBreadcrumbs(breadcrumbs)
@@ -77,20 +50,15 @@ const PageTitle: FC<Props & WithChildren> = ({children, description, breadcrumbs
     }
   }, [breadcrumbs])
 
-  return <></>
-}
-
-const PageDescription: FC<WithChildren> = ({children}) => {
-  const {setPageDescription} = usePageData()
   useEffect(() => {
     if (children) {
-      setPageDescription(children.toString())
+      setPageTitle(children.toString())
     }
     return () => {
-      setPageDescription('')
+      setPageTitle('')
     }
   }, [children])
   return <></>
 }
 
-export {PageDescription, PageTitle, PageDataProvider, usePageData}
+export {PageTitle, PageDataProvider, usePageData}

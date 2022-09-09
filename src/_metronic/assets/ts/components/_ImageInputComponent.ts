@@ -167,8 +167,8 @@ class ImageInputComponent {
     return EventHandlerUtil.one(this.element, name, handler)
   }
 
-  public off = (name: string, handlerId: string) => {
-    return EventHandlerUtil.off(this.element, name, handlerId)
+  public off = (name: string) => {
+    return EventHandlerUtil.off(this.element, name)
   }
 
   public trigger = (name: string, event: Event) => {
@@ -179,11 +179,13 @@ class ImageInputComponent {
   public static getInstance = (
     el: HTMLElement,
     componentName: string = defaultImageInputQueires.componentName
-  ): ImageInputComponent | undefined => {
+  ) => {
     const ImageInput = DataUtil.get(el, componentName)
     if (ImageInput) {
-      return ImageInput as ImageInputComponent
+      return ImageInput
     }
+
+    return null
   }
 
   public static createInstances = (

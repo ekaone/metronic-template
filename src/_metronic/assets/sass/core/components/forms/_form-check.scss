@@ -1,97 +1,134 @@
 //
-// Check/radio
+// Form Check
 //
 
-.form-check-input {
-	background-color: var(--kt-form-check-input-bg);
-	border: var(--kt-form-check-input-border);
+.form-check {
+    // Label
+    .form-check-label {
+        cursor: pointer;
+    }
 
-	&:active {
-		filter: var(--kt-form-check-input-active-filter);
-	}
+    // Input
+    .form-check-input {
+        cursor: pointer;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
 
-	&:focus {
-		border-color: var(--kt-form-check-input-focus-border);
-		box-shadow: var(--kt-form-check-input-focus-box-shadow);
-	}
+    // Custom
+    &.form-check-custom {
+        display: flex;
+        align-items: center;
+        padding-left: 0;
+        margin: 0;
 
-	&:checked {
-		background-color: var(--kt-form-check-input-checked-bg-color);
-		border-color: var(--kt-form-check-input-checked-border-color);
+        .form-check-input {
+            margin: 0;
+            float: none;
+            flex-shrink: 0;
+        }
 
-		&[type="checkbox"] {
-			@if $enable-gradients {
-				background-image: var(--kt-form-check-input-checked-bg-image), var(--#{$prefix}gradient);
-			} @else {
-				background-image: var(--kt-form-check-input-checked-bg-image);
-			}
-		}
+        .form-check-label {
+            margin-left: 0.55rem;
+        }
+    }
 
-		&[type="radio"] {
-			@if $enable-gradients {
-				background-image: var(--kt-form-check-radio-checked-bg-image), var(--#{$prefix}gradient);
-			} @else {
-				background-image: var(--kt-form-check-radio-checked-bg-image);
-			}
-		}
-	}
+    &:not(.form-switch) {
+        .form-check-input {
+            &[type="checkbox"] {
+                background-size: $form-check-input-bg-size;
+            }
+        }
+    }
 
-	&[type="checkbox"]:indeterminate {
-		background-color: var(--kt-form-check-input-indeterminate-bg-color);
-		border-color: var(--kt-form-check-input-indeterminate-border-color);
+    // Solid
+    &.form-check-solid {
+        .form-check-input {
+            border: 0;
+            background-color: $form-check-input-bg-solid;
 
-		@if $enable-gradients {
-			background-image: var(--kt-form-check-input-indeterminate-bg-image), var(--#{$prefix}gradient);
-		} @else {
-			background-image:var(--kt-form-check-input-indeterminate-bg-image);
-		}
-	}
+            &:active,
+            &:focus {
+                filter: none;
+                background-color: $form-check-input-bg-solid;
+            }
 
-	&:disabled {
-		opacity: var(--kt-form-check-input-disabled-opacity);
-	}
+            &:checked {
+                background-color: $form-check-input-checked-bg-color;
+            }
+        }
+    }
 
-	// Use disabled attribute in addition of :disabled pseudo-class
-	// See: https://github.com/twbs/bootstrap/issues/28247
-	&[disabled],
-	&:disabled {
-		~ .form-check-label {
-			opacity: var(--kt-form-check-label-disabled-opacity);
-		}
-	}
+    // Success state
+    &.form-check-success {
+        .form-check-input {
+            &:checked {
+                background-color: $success;
+            }
+        }
+    }
+
+    // Danger state
+    &.form-check-danger {
+        .form-check-input {
+            &:checked {
+                background-color: $danger;
+            }
+        }
+    }
+
+    // Warning state
+    &.form-check-warning {
+        .form-check-input {
+            &:checked {
+                background-color: $warning;
+            }
+        }
+    }
 }
 
-.form-check-label {
-	color: var(--kt-orm-check-label-color);
+// Sizing
+.form-check.form-check-custom {   
+    &.form-check-sm {
+        .form-check-input {
+            height: $form-check-input-width-sm;
+            width: $form-check-input-width-sm;
+        }
+    }
+
+    &.form-check-lg {
+        .form-check-input {
+            height: $form-check-input-width-lg;
+            width: $form-check-input-width-lg;
+        }
+    }
 }
 
-//
-// Switch
-//
+// Form switch
+.form-switch.form-check-solid {
+    .form-check-input {
+        height: $form-switch-height;
+        // background-image: escape-svg($form-switch-bg-image-solid);
+        border-radius: $form-switch-border-radius;
 
-.form-switch {
-	.form-check-input {
-		background-image: var(--kt-form-switch-bg-image);
+        &:checked {
+            filter: none;
+            background-image: escape-svg($form-switch-checked-bg-image);
+        }
+    }
 
-		&:focus {
-			background-image: var(--kt-form-switch-focus-bg-image);
-		}
+    &.form-switch-sm {
+        .form-check-input {
+            height: $form-switch-height-sm;
+            width: $form-switch-width-sm;
+        }
+    }
 
-		&:checked {
-			@if $enable-gradients {
-				background-image: var(--kt-form-switch-checked-bg-image), var(--#{$prefix}gradient);
-			} @else {
-				background-image: var(--kt-form-switch-checked-bg-image);
-			}
-		}
-	}
-}
-
-.btn-check {
-	&[disabled],
-	&:disabled {
-		+ .btn {
-			opacity: var(--kt-form-check-btn-check-disabled-opacity);
-		}
-	}
+    &.form-switch-lg {
+        .form-check-input {
+            height: $form-switch-height-lg;
+            width: $form-switch-width-lg;
+        }
+    }
 }

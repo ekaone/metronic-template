@@ -3,77 +3,73 @@ import React from 'react'
 
 export function Dropdown1() {
   return (
-    <div className='menu menu-sub menu-sub-dropdown w-250px w-md-300px' data-kt-menu='true'>
-      <div className='px-7 py-5'>
-        <div className='fs-5 text-dark fw-bolder'>Filter Options</div>
+    <div
+      className='menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-bold w-200px'
+      data-kt-menu='true'
+    >
+      <div className='menu-item px-3'>
+        <div className='menu-content fs-6 text-dark fw-bolder px-3 py-4'>Manage</div>
       </div>
 
-      <div className='separator border-gray-200'></div>
+      <div className='separator mb-3 opacity-75'></div>
 
-      <div className='px-7 py-5'>
-        <div className='mb-10'>
-          <label className='form-label fw-bold'>Status:</label>
+      <div className='menu-item px-3'>
+        <a href='#' className='menu-link px-3'>
+          Add User
+        </a>
+      </div>
 
-          <div>
-            <select
-              className='form-select form-select-solid'
-              data-kt-select2='true'
-              data-placeholder='Select option'
-              data-allow-clear='true'
-              defaultValue={'1'}
-            >
-              <option></option>
-              <option value='1'>Approved</option>
-              <option value='2'>Pending</option>
-              <option value='3'>In Process</option>
-              <option value='4'>Rejected</option>
-            </select>
+      <div className='menu-item px-3'>
+        <a href='#' className='menu-link px-3'>
+          Add Role
+        </a>
+      </div>
+
+      <div
+        className='menu-item px-3'
+        data-kt-menu-trigger='hover'
+        data-kt-menu-placement='right-start'
+        data-kt-menu-flip='left-start, top'
+      >
+        <a href='#' className='menu-link px-3'>
+          <span className='menu-title'>Add Group</span>
+          <span className='menu-arrow'></span>
+        </a>
+
+        <div className='menu-sub menu-sub-dropdown w-200px py-4'>
+          <div className='menu-item px-3'>
+            <a href='#' className='menu-link px-3'>
+              Admin Group
+            </a>
+          </div>
+
+          <div className='menu-item px-3'>
+            <a href='#' className='menu-link px-3'>
+              Staff Group
+            </a>
+          </div>
+
+          <div className='menu-item px-3'>
+            <a href='#' className='menu-link px-3'>
+              Member Group
+            </a>
           </div>
         </div>
+      </div>
 
-        <div className='mb-10'>
-          <label className='form-label fw-bold'>Member Type:</label>
+      <div className='menu-item px-3'>
+        <a href='#' className='menu-link px-3'>
+          Reports
+        </a>
+      </div>
 
-          <div className='d-flex'>
-            <label className='form-check form-check-sm form-check-custom form-check-solid me-5'>
-              <input className='form-check-input' type='checkbox' value='1' />
-              <span className='form-check-label'>Author</span>
-            </label>
+      <div className='separator mt-3 opacity-75'></div>
 
-            <label className='form-check form-check-sm form-check-custom form-check-solid'>
-              <input className='form-check-input' type='checkbox' value='2' defaultChecked={true} />
-              <span className='form-check-label'>Customer</span>
-            </label>
-          </div>
-        </div>
-
-        <div className='mb-10'>
-          <label className='form-label fw-bold'>Notifications:</label>
-
-          <div className='form-check form-switch form-switch-sm form-check-custom form-check-solid'>
-            <input
-              className='form-check-input'
-              type='checkbox'
-              value=''
-              name='notifications'
-              defaultChecked={true}
-            />
-            <label className='form-check-label'>Enabled</label>
-          </div>
-        </div>
-
-        <div className='d-flex justify-content-end'>
-          <button
-            type='reset'
-            className='btn btn-sm btn-light btn-active-light-primary me-2'
-            data-kt-menu-dismiss='true'
-          >
-            Reset
-          </button>
-
-          <button type='submit' className='btn btn-sm btn-primary' data-kt-menu-dismiss='true'>
-            Apply
-          </button>
+      <div className='menu-item px-3'>
+        <div className='menu-content px-3 py-3'>
+          <a className='btn btn-primary fw-bold btn-sm px-4' href='#'>
+            Create New
+          </a>
         </div>
       </div>
     </div>

@@ -4,7 +4,6 @@ import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTSVG} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -14,8 +13,8 @@ type Props = {
 
 const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
-  const {mode} = useThemeMode()
-  const refreshChart = () => {
+
+  useEffect(() => {
     if (!chartRef.current) {
       return
     }
@@ -25,27 +24,21 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
       chart.render()
     }
 
-    return chart
-  }
-
-  useEffect(() => {
-    const chart = refreshChart()
     return () => {
       if (chart) {
         chart.destroy()
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, mode])
+  }, [chartRef])
 
   return (
     <div className={`card ${className}`}>
       {/* begin::Beader */}
       <div className='card-header border-0 py-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Sales Statistics</span>
+          <span className='card-label fw-bolder fs-3 mb-1'>Sales Statistics</span>
 
-          <span className='text-muted fw-semibold fs-7'>Recent sales statistics</span>
+          <span className='text-muted fw-bold fs-7'>Recent sales statistics</span>
         </h3>
 
         <div className='card-toolbar'>
@@ -87,8 +80,8 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
                 {/* begin::Title */}
                 <div>
-                  <div className='fs-4 text-dark fw-bold'>$2,034</div>
-                  <div className='fs-7 text-muted fw-semibold'>Author Sales</div>
+                  <div className='fs-4 text-dark fw-bolder'>$2,034</div>
+                  <div className='fs-7 text-muted fw-bold'>Author Sales</div>
                 </div>
                 {/* end::Title */}
               </div>
@@ -111,8 +104,8 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
                 {/* begin::Title */}
                 <div>
-                  <div className='fs-4 text-dark fw-bold'>$706</div>
-                  <div className='fs-7 text-muted fw-semibold'>Commision</div>
+                  <div className='fs-4 text-dark fw-bolder'>$706</div>
+                  <div className='fs-7 text-muted fw-bold'>Commision</div>
                 </div>
                 {/* end::Title */}
               </div>
@@ -139,8 +132,8 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
                 {/* begin::Title */}
                 <div>
-                  <div className='fs-4 text-dark fw-bold'>$49</div>
-                  <div className='fs-7 text-muted fw-semibold'>Average Bid</div>
+                  <div className='fs-4 text-dark fw-bolder'>$49</div>
+                  <div className='fs-7 text-muted fw-bold'>Average Bid</div>
                 </div>
                 {/* end::Title */}
               </div>
@@ -163,8 +156,8 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
                 {/* begin::Title */}
                 <div>
-                  <div className='fs-4 text-dark fw-bold'>$5.8M</div>
-                  <div className='fs-7 text-muted fw-semibold'>All Time Sales</div>
+                  <div className='fs-4 text-dark fw-bolder'>$5.8M</div>
+                  <div className='fs-7 text-muted fw-bold'>All Time Sales</div>
                 </div>
                 {/* end::Title */}
               </div>
@@ -185,10 +178,10 @@ const MixedWidget9: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 }
 
 const chartOptions = (chartColor: string, chartHeight: string): ApexOptions => {
-  const labelColor = getCSSVariableValue('--kt-gray-800')
-  const strokeColor = getCSSVariableValue('--kt-gray-300')
-  const baseColor = getCSSVariableValue('--kt-' + chartColor)
-  const lightColor = getCSSVariableValue('--kt-' + chartColor + '-light')
+  const labelColor = getCSSVariableValue('--bs-' + 'gray-800')
+  const strokeColor = getCSSVariableValue('--bs-' + 'gray-300')
+  const baseColor = getCSSVariableValue('--bs-' + chartColor)
+  const lightColor = getCSSVariableValue('--bs-light-' + chartColor)
 
   return {
     series: [

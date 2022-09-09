@@ -223,8 +223,8 @@ class StickyComponent {
     return EventHandlerUtil.one(this.element, name, callback)
   }
 
-  public off = (name: string, handlerId: string) => {
-    return EventHandlerUtil.off(this.element, name, handlerId)
+  public off = (name: string) => {
+    return EventHandlerUtil.off(this.element, name)
   }
 
   public trigger = (name: string) => {
@@ -236,12 +236,9 @@ class StickyComponent {
     return DataUtil.has(element, 'sticky')
   }
 
-  public static getInstance(element: HTMLElement): StickyComponent | undefined {
+  public static getInstance(element: HTMLElement) {
     if (element !== null && StickyComponent.hasInstace(element)) {
-      const data = DataUtil.get(element, 'sticky')
-      if (data) {
-        return data as StickyComponent
-      }
+      return DataUtil.get(element, 'sticky')
     }
   }
 

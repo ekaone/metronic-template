@@ -121,7 +121,7 @@ class MenuComponent {
   }
 
   // Get item element
-  private _getItemElement = (_element: HTMLElement): HTMLElement | undefined => {
+  private _getItemElement = (_element: HTMLElement) => {
     // Element is the external trigger element
     if (this._isTriggerElement(_element)) {
       return _element
@@ -135,11 +135,11 @@ class MenuComponent {
     // Element has item DOM reference in it's data storage
     const itemElement = DataUtil.get(_element, 'item')
     if (itemElement) {
-      return itemElement as HTMLElement
+      return itemElement
     }
 
     // Item is parent of element
-    const item = _element.closest<HTMLElement>('.menu-item[data-kt-menu-trigger]')
+    const item = _element.closest('.menu-item[data-kt-menu-trigger]')
     if (item) {
       return item
     }
@@ -149,24 +149,24 @@ class MenuComponent {
     if (sub) {
       const subItem = DataUtil.get(sub as HTMLElement, 'item')
       if (subItem) {
-        return subItem as HTMLElement
+        return subItem
       }
     }
   }
 
   // Get item parent element
   private _getItemParentElement = (item: HTMLElement) => {
-    const sub = item.closest<HTMLElement>('.menu-sub')
+    const sub = item.closest('.menu-sub')
     if (!sub) {
       return null
     }
 
-    const subItem = DataUtil.get(sub, 'item')
+    const subItem = DataUtil.get(sub as HTMLElement, 'item')
     if (subItem) {
-      return subItem as HTMLElement
+      return subItem
     }
 
-    const parentItem = sub.closest<HTMLElement>('.menu-item[data-kt-menu-trigger]')
+    const parentItem = sub.closest('.menu-item[data-kt-menu-trigger]')
     if (sub && parentItem) {
       return parentItem
     }
@@ -176,8 +176,8 @@ class MenuComponent {
 
   // Get item parent elements
   private _getItemParentElements = (item: HTMLElement) => {
-    const parents: Array<HTMLElement> = []
-    let parent: HTMLElement | null
+    const parents: Array<Element> = []
+    let parent: Element
     let i = 0
     let buffer: HTMLElement = item
 
@@ -245,17 +245,17 @@ class MenuComponent {
   }
 
   // Get item child element
-  private _getItemChildElement = (item: HTMLElement): HTMLElement | null => {
+  private _getItemChildElement = (item: HTMLElement) => {
     let selector = item
 
     const subItem = DataUtil.get(item, 'sub')
     if (subItem) {
-      selector = subItem as HTMLElement
+      selector = subItem
     }
 
     if (selector) {
       //element = selector.querySelector('.show.menu-item[data-kt-menu-trigger]');
-      const element = selector.querySelector<HTMLElement>('.menu-item[data-kt-menu-trigger]')
+      const element = selector.querySelector('.menu-item[data-kt-menu-trigger]')
       if (element) {
         return element
       }
@@ -265,8 +265,8 @@ class MenuComponent {
 
   // Get item child elements
   private _getItemChildElements = (item: HTMLElement) => {
-    const children: Array<HTMLElement> = []
-    let child: HTMLElement | null
+    const children: Array<Element> = []
+    let child: Element | null
     let i = 0
     let buffer = item
     do {
@@ -283,7 +283,7 @@ class MenuComponent {
   }
 
   // Get item sub element
-  private _getItemSubElement = (item: HTMLElement): HTMLElement | null => {
+  private _getItemSubElement = (item: HTMLElement) => {
     if (!item) {
       return null
     }
@@ -295,8 +295,7 @@ class MenuComponent {
     if (item.classList.contains('menu-sub')) {
       return item
     } else if (DataUtil.has(item, 'sub')) {
-      const itemSub = DataUtil.get(item, 'sub')
-      return itemSub ? (itemSub as HTMLElement) : null
+      return DataUtil.get(item, 'sub')
     } else {
       return getElementChild(item, '.menu-sub')
     }
@@ -318,7 +317,7 @@ class MenuComponent {
   // Get item sub type
   private _getItemSubType = (element: HTMLElement) => {
     const sub = this._getItemSubElement(element)
-    if (sub && parseInt(this._getCss(sub as HTMLElement, 'z-index')) > 0) {
+    if (sub && parseInt(this._getCss(sub, 'z-index')) > 0) {
       return 'dropdown'
     } else {
       return 'accordion'
@@ -330,11 +329,7 @@ class MenuComponent {
     let sub = this._getItemSubElement(item)
     if (sub) {
       if (this._getItemSubType(item) === 'dropdown') {
-        const subHTMLElement = sub as HTMLElement
-        return (
-          subHTMLElement.classList.contains('show') &&
-          subHTMLElement.hasAttribute('data-popper-placement')
-        )
+        return sub.classList.contains('show') && sub.hasAttribute('data-popper-placement')
       } else {
         return item.classList.contains('show')
       }
@@ -398,36 +393,32 @@ class MenuComponent {
       zindex = parentZindex + 1
     }
 
-    if (zindex && sub) {
+    if (zindex) {
       ElementStyleUtil.set(sub, 'z-index', zindex)
     }
 
-    if (width && sub) {
+    if (width) {
       ElementStyleUtil.set(sub, 'width', width)
     }
 
-    if (height && sub) {
+    if (height) {
       ElementStyleUtil.set(sub, 'height', height)
     }
 
-    this.initDropdownPopper(item, sub as HTMLElement)
+    this.initDropdownPopper(item, sub)
 
     item.classList.add('show')
     item.classList.add('menu-dropdown')
-    sub?.classList.add('show')
+    sub.classList.add('show')
 
     // Append the sub the the root of the menu
     if (this._getItemOption(item, 'overflow') === true) {
-      if (sub) {
-        document.body.appendChild(sub)
-        DataUtil.set(item, 'sub', sub)
-        DataUtil.set(sub, 'item', item)
-        DataUtil.set(sub, 'menu', this)
-      }
+      document.body.appendChild(sub)
+      DataUtil.set(item, 'sub', sub)
+      DataUtil.set(sub, 'item', item)
+      DataUtil.set(sub, 'menu', this)
     } else {
-      if (sub) {
-        DataUtil.set(sub, 'item', item)
-      }
+      DataUtil.set(sub, 'item', item)
     }
 
     EventHandlerUtil.trigger(this.element, 'kt.menu.dropdown.shown')
@@ -466,37 +457,27 @@ class MenuComponent {
     }
 
     const sub = this._getItemSubElement(item)
-    if (sub) {
-      ElementStyleUtil.set(sub, 'z-index', '')
-      ElementStyleUtil.set(sub, 'width', '')
-      ElementStyleUtil.set(sub, 'height', '')
-    }
-
+    ElementStyleUtil.set(sub, 'z-index', '')
+    ElementStyleUtil.set(sub, 'width', '')
+    ElementStyleUtil.set(sub, 'height', '')
     item.classList.remove('show')
     item.classList.remove('menu-dropdown')
-    if (sub) {
-      sub.classList.remove('show')
-    }
+    sub.classList.remove('show')
 
     // Append the sub back to it's parent
     if (this._getItemOption(item, 'overflow') === true) {
       if (item.classList.contains('menu-item')) {
-        if (sub) {
-          item.appendChild(sub)
-        }
+        item.appendChild(sub)
       } else {
         insertAfterElement(this.element, item)
       }
 
-      if (sub) {
-        DataUtil.remove(item, 'sub')
-        DataUtil.remove(sub, 'item')
-        DataUtil.remove(sub, 'menu')
-      }
+      DataUtil.remove(item, 'sub')
+      DataUtil.remove(sub, 'item')
+      DataUtil.remove(sub, 'menu')
     }
 
     if (DataUtil.has(item, 'popper') === true) {
-      // @ts-ignore
       DataUtil.get(item, 'popper').destroy()
       DataUtil.remove(item, 'popper')
     }
@@ -509,7 +490,6 @@ class MenuComponent {
   // Destroy dropdown popper(new)
   private destroyDropdownPopper = (item: HTMLElement) => {
     if (DataUtil.has(item, 'popper') === true) {
-      // @ts-ignore
       DataUtil.get(item, 'popper').destroy()
       DataUtil.remove(item, 'popper')
     }
@@ -598,8 +578,8 @@ class MenuComponent {
       item.classList.remove('hover')
       item.classList.remove('show')
       item.classList.remove('show')
-      if (sub) {
-        sub.classList.remove('show')
+      if (sub && sub.removeClass) {
+        sub.removeClass(sub, 'show')
       }
     } // updated
   }
@@ -697,10 +677,7 @@ class MenuComponent {
     }
 
     if (DataUtil.get(item, 'hover') === '1') {
-      const timeout = DataUtil.get(item, 'timeout')
-      if (timeout) {
-        clearTimeout(timeout as number)
-      }
+      clearTimeout(DataUtil.get(item, 'timeout'))
       DataUtil.remove(item, 'hover')
       DataUtil.remove(item, 'timeout')
     }
@@ -711,9 +688,6 @@ class MenuComponent {
   // Dismiss handler
   private _dismiss = (element: HTMLElement, e: Event) => {
     const item = this._getItemElement(element)
-    if (!item) {
-      return
-    }
     const items = this._getItemChildElements(item)
     //if ( item !== null && _getItemOption(item, 'trigger') === 'click' &&  _getItemSubType(item) === 'dropdown' ) {
     const itemSubType = this._getItemSubType(item)
@@ -746,16 +720,14 @@ class MenuComponent {
   private _click = (element: HTMLElement, e: Event) => {
     e.preventDefault()
     const item = this._getItemElement(element)
-    if (item) {
-      if (this._getItemOption(item, 'trigger') !== 'click') {
-        return
-      }
+    if (this._getItemOption(item, 'trigger') !== 'click') {
+      return
+    }
 
-      if (this._getItemOption(item, 'toggle') === false) {
-        this._show(item)
-      } else {
-        this._toggle(item)
-      }
+    if (this._getItemOption(item, 'toggle') === false) {
+      this._show(item)
+    } else {
+      this._toggle(item)
     }
   }
 
@@ -857,17 +829,17 @@ class MenuComponent {
     return EventHandlerUtil.one(this.element, name, handler)
   }
 
-  public off = (name: string, handlerId: string) => {
-    return EventHandlerUtil.off(this.element, name, handlerId)
+  public off = (name: string) => {
+    return EventHandlerUtil.off(this.element, name)
   }
 
   // public static methods
   // Get KTMenu instance by element
-  public static getInstance = (element: HTMLElement): MenuComponent | null => {
+  public static getInstance = (element: HTMLElement) => {
     // Element has menu DOM reference in it's DATA storage
     const elementMenu = DataUtil.get(element, 'menu')
     if (elementMenu) {
-      return elementMenu as MenuComponent
+      return elementMenu
     }
 
     // Element has .menu parent
@@ -875,7 +847,7 @@ class MenuComponent {
     if (menu) {
       const menuData = DataUtil.get(menu as HTMLElement, 'menu')
       if (menuData) {
-        return menuData as MenuComponent
+        return menuData
       }
     }
 
@@ -885,7 +857,7 @@ class MenuComponent {
       if (sub) {
         const subMenu = DataUtil.get(sub as HTMLElement, 'menu')
         if (subMenu) {
-          return subMenu as MenuComponent
+          return subMenu
         }
       }
     }
@@ -895,9 +867,7 @@ class MenuComponent {
 
   // Hide all dropdowns and skip one if provided
   public static hideDropdowns = (skip: HTMLElement | undefined) => {
-    const items = document.querySelectorAll<HTMLElement>(
-      '.show.menu-dropdown[data-kt-menu-trigger]'
-    )
+    const items = document.querySelectorAll('.show.menu-dropdown[data-kt-menu-trigger]')
 
     if (items && items.length > 0) {
       for (let i = 0, len = items.length; i < len; i++) {
@@ -907,7 +877,6 @@ class MenuComponent {
         if (menu && menu.getItemSubType(item) === 'dropdown') {
           if (skip) {
             if (
-              // @ts-ignore
               menu.getItemSubElement(item).contains(skip) === false &&
               item.contains(skip) === false &&
               item !== skip
@@ -929,7 +898,6 @@ class MenuComponent {
         var item = items[i]
 
         if (DataUtil.has(item as HTMLElement, 'popper')) {
-          // @ts-ignore
           DataUtil.get(item as HTMLElement, 'popper').forceUpdate()
         }
       }
@@ -1065,6 +1033,7 @@ class MenuComponent {
   }
 
   public static reinitialization = () => {
+    MenuComponent.initGlobalHandlers()
     MenuComponent.createInstances('[data-kt-menu="true"]')
   }
 

@@ -4,7 +4,6 @@ import ApexCharts, {ApexOptions} from 'apexcharts'
 import {KTSVG, toAbsoluteUrl} from '../../../helpers'
 import {getCSSVariableValue} from '../../../assets/ts/_utils'
 import {Dropdown1} from '../../content/dropdown/Dropdown1'
-import {useThemeMode} from '../../layout/theme-mode/ThemeModeProvider'
 
 type Props = {
   className: string
@@ -14,8 +13,8 @@ type Props = {
 
 const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => {
   const chartRef = useRef<HTMLDivElement | null>(null)
-  const {mode} = useThemeMode()
-  const refreshChart = () => {
+
+  useEffect(() => {
     if (!chartRef.current) {
       return
     }
@@ -25,28 +24,21 @@ const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => 
       chart1.render()
     }
 
-    return chart1
-  }
-
-  useEffect(() => {
-    const chart1 = refreshChart()
-
     return () => {
       if (chart1) {
         chart1.destroy()
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [chartRef, mode])
+  }, [chartRef])
 
   return (
     <div className={`card ${className}`}>
       {/* begin::Beader */}
       <div className='card-header border-0 py-5'>
         <h3 className='card-title align-items-start flex-column'>
-          <span className='card-label fw-bold fs-3 mb-1'>Trends</span>
+          <span className='card-label fw-bolder fs-3 mb-1'>Trends</span>
 
-          <span className='text-muted fw-semibold fs-7'>Latest trends</span>
+          <span className='text-muted fw-bold fs-7'>Latest trends</span>
         </h3>
 
         <div className='card-toolbar'>
@@ -92,17 +84,17 @@ const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
               {/* begin::Title */}
               <div>
-                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
+                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bolder'>
                   Top Authors
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>Ricky Hunt, Sandra Trepp</div>
+                <div className='fs-7 text-muted fw-bold mt-1'>Ricky Hunt, Sandra Trepp</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>+82$</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -125,17 +117,17 @@ const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
               {/* begin::Title */}
               <div>
-                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
+                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bolder'>
                   Top Sales
                 </a>
-                <div className='fs-7 text-muted fw-semibold mt-1'>PitStop Emails</div>
+                <div className='fs-7 text-muted fw-bold mt-1'>PitStop Emails</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>+82$</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -158,18 +150,18 @@ const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 
               {/* begin::Title */}
               <div className='py-1'>
-                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bold'>
+                <a href='#' className='fs-6 text-gray-800 text-hover-primary fw-bolder'>
                   Top Engagement
                 </a>
 
-                <div className='fs-7 text-muted fw-semibold mt-1'>KT.com</div>
+                <div className='fs-7 text-muted fw-bold mt-1'>KT.com</div>
               </div>
               {/* end::Title */}
             </div>
             {/* end::Section */}
 
             {/* begin::Label */}
-            <div className='badge badge-light fw-semibold py-4 px-3'>+82$</div>
+            <div className='badge badge-light fw-bold py-4 px-3'>+82$</div>
             {/* end::Label */}
           </div>
           {/* end::Item */}
@@ -182,10 +174,10 @@ const MixedWidget8: React.FC<Props> = ({className, chartColor, chartHeight}) => 
 }
 
 const chart1Options = (chartColor: string, chartHeight: string): ApexOptions => {
-  const labelColor = getCSSVariableValue('--kt-gray-800')
-  const strokeColor = getCSSVariableValue('--kt-gray-300')
-  const baseColor = getCSSVariableValue('--kt-' + chartColor) as string
-  const lightColor = getCSSVariableValue('--kt-' + chartColor + '-light')
+  const labelColor = getCSSVariableValue('--bs-gray-800')
+  const strokeColor = getCSSVariableValue('--bs-gray-300')
+  const baseColor = getCSSVariableValue('--bs-' + chartColor)
+  const lightColor = getCSSVariableValue('--bs-light-' + chartColor)
 
   return {
     series: [
@@ -216,10 +208,6 @@ const chart1Options = (chartColor: string, chartHeight: string): ApexOptions => 
       enabled: false,
     },
     fill: {
-      type: 'solid',
-      opacity: 1,
-    },
-    fill1: {
       type: 'gradient',
       opacity: 1,
       gradient: {
@@ -230,7 +218,6 @@ const chart1Options = (chartColor: string, chartHeight: string): ApexOptions => 
         opacityFrom: 1,
         opacityTo: 0.375,
         stops: [25, 50, 100],
-        colorStops: [],
       },
     },
     stroke: {
@@ -264,12 +251,7 @@ const chart1Options = (chartColor: string, chartHeight: string): ApexOptions => 
         },
       },
       tooltip: {
-        enabled: true,
-        formatter: undefined,
-        offsetY: 0,
-        style: {
-          fontSize: '12px',
-        },
+        enabled: false,
       },
     },
     yaxis: {
@@ -317,8 +299,7 @@ const chart1Options = (chartColor: string, chartHeight: string): ApexOptions => 
     colors: [lightColor],
     markers: {
       colors: [lightColor],
-      // @ts-ignore
-      strokeColor: [baseColor],
+      strokeColors: [baseColor],
       strokeWidth: 3,
     },
   }
